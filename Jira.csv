@@ -1,0 +1,11 @@
+Issue Type,Issue key,Issue id,Summary,Assignee,Reporter,Priority,Status,Resolution,Created,Updated,Due date
+Task,MISC-239,15680,Web App development using Plotly,jeffin.thomas,jeffin.thomas,Medium,In Progress,,18/Jun/20 7:59 PM,24/Jun/20 9:13 PM,
+Task,MISC-244,15709,Building a Log Analytics Solution on AWS using Kinesis.,jeffin.thomas,jeffin.thomas,Medium,In Progress,,19/Jun/20 5:47 PM,24/Jun/20 9:11 PM,
+Subtask,MISC-250,15745,Data Not Delivered to Amazon S3 from Kinesis Data Firehose,jeffin.thomas,jeffin.thomas,Medium,In Progress,,22/Jun/20 3:43 PM,22/Jun/20 3:44 PM,
+Task,ADDLP-515,13797,Daily monitoring and debug issues - Boost,jeffin.thomas,jeffin.thomas,Medium,In Progress,,20/Mar/20 2:55 AM,17/Apr/20 12:47 PM,
+Task,ADDLP-438,13270,Re-create Lambda Deployment Document ,jeffin.thomas,sandeep.diddi,Medium,In Review,,21/Feb/20 5:09 PM,24/Feb/20 4:59 AM,24/Feb/20 12:00 AM
+Subtask,TRAIN-561,12199,Capitol - Jeffin,jeffin.thomas,rujo.paul,Medium,ON HOLD,,03/Dec/19 12:50 PM,08/Feb/20 8:02 AM,
+Task,TRAIN-663,12695,Boost DQ Automation Document,jeffin.thomas,jeffin.thomas,Medium,Review,,18/Jan/20 11:27 AM,05/Feb/20 2:39 PM,16/Feb/20 12:00 AM
+Task,TRAIN-639,12634,Data modeling,jeffin.thomas,jeffin.thomas,Medium,ON HOLD,,07/Jan/20 12:14 PM,20/Jan/20 11:18 AM,
+Task,TRAIN-645,12650,Data Migration Service,jeffin.thomas,jeffin.thomas,Medium,Review,,08/Jan/20 2:37 PM,09/Jan/20 12:24 PM,
+Task,TRAIN-634,12629,Assignment - Normalize the Entities till 2NF and Create EER Diagram.,jeffin.thomas,jeffin.thomas,Medium,Review,,06/Jan/20 2:12 PM,08/Jan/20 2:11 PM,07/Jan/20 12:00 AM
