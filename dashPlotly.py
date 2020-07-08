@@ -81,7 +81,8 @@ def update_graph(selected_feature1):
 
     return {
         'data': [trace],
-        'layout': go.Layout(title=f'Metrics considered: {selected_feature1.title()}',
+        'layout': go.Layout(title=f'Metrics considered: 
+                            {selected_feature1.title()}',
                             colorway=["#EF963B", "#EF533B"], hovermode="closest",
                             xaxis={'title': "Distribution", 
                                    'titlefont': {'color': 'black', 'size': 14},
