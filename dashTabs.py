@@ -30,4 +30,4 @@ def render_content(tab):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port = 8050, host=“ec2-13-233-98-249.ap-south-1.compute.amazonaws.com”)
+    app.run_server(debug=True, port = 8050, host=“13.233.98.249”)
