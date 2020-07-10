@@ -107,7 +107,7 @@ def update_graph(selected_dropdown):
     data = [val for sublist in traces for val in sublist]
     figure = {'data': data,
         'layout': go.Layout(colorway=["#5E0DAC", '#FF4F00', '#375CB1', '#FF7400', '#FFF400', '#FF0056'],
-            height=600,title=f"High and Low Prices for {', '.join(str(dropdown[i]) for i in selected_dropdown)} Over Time",
+            height=600,title="High and Low Prices for {', '.join(str(dropdown[i]) for i in selected_dropdown)} Over Time",
             xaxis={"title":"Date",
                    'rangeselector': {'buttons': list([{'count': 1, 'label': '1M', 'step': 'month', 'stepmode': 'backward'},
                                                       {'count': 6, 'label': '6M', 'step': 'month', 'stepmode': 'backward'},
@@ -129,7 +129,7 @@ def update_graph(selected_dropdown_value):
     data = [val for sublist in traces for val in sublist]
     figure = {'data': data,
         'layout': go.Layout(colorway=["#5E0DAC", '#FF4F00', '#375CB1', '#FF7400', '#FFF400', '#FF0056'],
-            height=600,title=f"Market Volume for {', '.join(str(dropdown[i]) for i in selected_dropdown_value)} Over Time",
+            height=600,title="Market Volume for {', '.join(str(dropdown[i]) for i in selected_dropdown_value)} Over Time",
             xaxis={"title":"Date",
                    'rangeselector': {'buttons': list([{'count': 1, 'label': '1M', 'step': 'month', 'stepmode': 'backward'},
                                                       {'count': 6, 'label': '6M', 'step': 'month', 'stepmode': 'backward'},
@@ -153,7 +153,7 @@ def update_graph(stock, stock2, radioval):
         data = [val for sublist in traces for val in sublist]
         figure = {'data': data,
                   'layout': go.Layout(colorway=['#FF7400', '#FFF400', '#FF0056'],
-                                      height=600, title=f"{radio[radioval]}",
+                                      height=600, title="{radio[radioval]}",
                                       paper_bgcolor='rgba(0,0,0,0)',
                                       plot_bgcolor='rgba(0,0,0,0)')}
     else:
@@ -163,7 +163,7 @@ def update_graph(stock, stock2, radioval):
         data = [val for sublist in traces for val in sublist]
         figure = {'data': data,
             'layout': go.Layout(colorway=['#FF7400', '#FFF400', '#FF0056'],
-                height=600,title=f"{radio[radioval]} of {dropdown[stock]} vs {dropdown[stock2]} Over Time (1000 iterations)",
+                height=600,title="{radio[radioval]} of {dropdown[stock]} vs {dropdown[stock2]} Over Time (1000 iterations)",
                 xaxis={"title": stock,}, yaxis={"title": stock2},     paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)')}
     return figure
@@ -221,7 +221,7 @@ def update_graph(stock , radioval):
         data = [val for sublist in traces for val in sublist]
         figure = {'data': data,
                   'layout': go.Layout(colorway=['#FF7400', '#FFF400', '#FF0056'],
-                                      height=600, title=f"{radio[radioval]}",
+                                      height=600, title="{radio[radioval]}",
                                       paper_bgcolor='rgba(0,0,0,0)',
                                       plot_bgcolor='rgba(0,0,0,0)')}
     else:
@@ -233,7 +233,7 @@ def update_graph(stock , radioval):
         data = [val for sublist in traces for val in sublist]
         figure = {'data': data,
             'layout': go.Layout(colorway=["#5E0DAC", '#FF4F00', '#375CB1', '#FF7400', '#FFF400', '#FF0056'],
-                height=600,title=f"{radio[radioval]} Train-Test Sets for {dropdown[stock]}",
+                height=600,title="{radio[radioval]} Train-Test Sets for {dropdown[stock]}",
                 xaxis={"title":"Date",
                        'rangeselector': {'buttons': list([{'count': 1, 'label': '1M', 'step': 'month', 'stepmode': 'backward'},
                                                           {'count': 6, 'label': '6M', 'step': 'month', 'stepmode': 'backward'},
@@ -257,7 +257,7 @@ def update_graph(stock, radioval):
         data = [val for sublist in traces for val in sublist]
         figure = {'data': data,
                   'layout': go.Layout(colorway=['#FF7400', '#FFF400', '#FF0056'],
-                                      height=600, title=f"{radio[radioval]}",
+                                      height=600, title="{radio[radioval]}",
                                       paper_bgcolor='rgba(0,0,0,0)',
                                       plot_bgcolor='rgba(0,0,0,0)')}
     else:
@@ -284,7 +284,7 @@ def update_graph(stock, radioval):
         data = [val for sublist in traces for val in sublist]
         figure = {'data': data,
             'layout': go.Layout(colorway=["#5E0DAC", '#FF4F00', '#375CB1', '#FF7400', '#FFF400', '#FF0056'],
-                height=600,title=f"{radio[radioval]} ARIMA Predictions vs Actual for {dropdown[stock]}",
+                height=600,title="{radio[radioval]} ARIMA Predictions vs Actual for {dropdown[stock]}",
                 xaxis={"title":"Date",
                        'rangeselector': {'buttons': list([{'count': 1, 'label': '1M', 'step': 'month', 'stepmode': 'backward'},
                                                           {'count': 6, 'label': '6M', 'step': 'month', 'stepmode': 'backward'},
