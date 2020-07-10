@@ -1,146 +1,139 @@
 # -*- coding: utf-8 -*-
-import base64
-import datetime
-import io
-import dash
+import pandas as pd     #(version 1.0.0)
+import plotly           #(version 4.5.4) pip install plotly==4.5.4
+import plotly.express as px
+
+import dash             #(version 1.9.1) pip install dash==1.9.1
 import dash_table
 import dash_core_components as dcc
 import dash_html_components as html
-import pandas as pd
-import plotly.graph_objs as go
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output
 
-app = dash.Dash()
-server = app.server
+app = dash.Dash(__name__)
 
-#df2 = pd.read_csv("dataset_Stock.csv")
-#df2 = pd.read_csv("JiraReport_jeffin.csv")
-#df2 = pd.read_csv("JiraReport_Jithu.csv")
-#df2 = pd.read_csv("dataset_Facebook.csv")
-df2 = pd.read_csv("Jira.csv")
+#---------------------------------------------------------------
+#Taken from https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases
+df = pd.read_excel("https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-07-09.xlsx")
 
-
-
+dff = df.groupby('countriesAndTerritories', as_index=False)[['deaths','cases']].sum()
+print (dff[:5])
+#---------------------------------------------------------------
 app.layout = html.Div([
-    # Setting the main title of the Dashboard
-    html.H1("Jira Report Analysis", style={"textAlign": "center"}),
-    
-    # Dividing the dashboard in tabs
-
-        # Defining the layout of the second tab
-        dcc.Tab(label='Performance Metrics', children=[
-            html.H1(" ", 
-                    style={"textAlign": "center"}),
-            # Adding a dropdown menu and the subsequent histogram graph
-            html.Div([
-                      html.Div([dcc.Dropdown(id='feature-selected1',
-                      options=[{'label': i.title(),
-                                'value': i} for i in df2.columns.values[0:]], 
-                                 value='Status')],
-                                 className="five columns", 
-                                 style={"display": "block", "margin-left": "auto",
-                                        "margin-right": "auto", "width": "60%"}),
-                    ], className="row",
-                    style={"padding": 50, "width": "60%", 
-                           "margin-left": "auto", "margin-right": "auto"}),
-                    dcc.Graph(id='my-graph2'),
-        dcc.Upload(
-            id='upload-data',
-            children=html.Div([
-                'Drag and Drop or ', html.A('Select Files')
-            ]),
-            style={
-                'width': '100%',
-                'height': '60px',
-                'lineHeight': '60px',
-                'borderWidth': '1px',
-                'borderStyle': 'dashed',
-                'borderRadius': '5px',
-                'textAlign': 'center',
-                'margin': '10px'
-            },
-            # Allow multiple files to be uploaded
-            multiple=True
-        ),
-        html.Div(id='output-data-upload'),        
-        ])
-      
-    ])
-
-
-@app.callback(
-    dash.dependencies.Output('my-graph2', 'figure'),
-    [dash.dependencies.Input('feature-selected1', 'value')])
-    
-               
-def update_graph(selected_feature1):
-    if selected_feature1 == None:
-        selected_feature1 = 'Type'
-        trace = go.Histogram(x= df2.Type,marker=dict(color='rgb(0, 0, 100)'))
-    else:
-        trace = go.Histogram(x=df2[selected_feature1],marker=dict(color='rgb(0, 0, 100)'))
-
-    return {
-        'data': [trace],
-        'layout': go.Layout(title=f'Metrics considered: {selected_feature1.title()}',
-                            colorway=["#EF963B", "#EF533B"], hovermode="closest",
-                            xaxis={'title': "Distribution", 
-                                   'titlefont': {'color': 'black', 'size': 14},
-                                   'tickfont': {'size': 14, 'color': 'black'}},
-                            yaxis={'title': "Frequency", 
-                                   'titlefont': {'color': 'black', 'size': 14, },
-                                   'tickfont': {'color': 'black'}})}
-
-def parse_contents(contents, filename, date):
-    content_type, content_string = contents.split(',')
-
-    decoded = base64.b64decode(content_string)
-    try:
-        if 'csv' in filename:
-            # Assume that the user uploaded a CSV file
-            df = pd.read_csv(
-                io.StringIO(decoded.decode('utf-8')))
-        elif 'xls' in filename:
-            # Assume that the user uploaded an excel file
-            df = pd.read_excel(io.BytesIO(decoded))
-
-    except Exception as e:
-        print(e)
-        return html.Div([
-            'There was an error processing this file.'
-        ])
-
-    return html.Div([
-        html.H5(filename),
-        html.H6(datetime.datetime.fromtimestamp(date)),
-
+    html.Div([
         dash_table.DataTable(
-            data=df.to_dict('records'),
-            columns=[{'name': i, 'id': i} for i in df.columns]
+            id='datatable_id',
+            data=dff.to_dict('records'),
+            columns=[
+                {"name": i, "id": i, "deletable": False, "selectable": False} for i in dff.columns
+            ],
+            editable=False,
+            filter_action="native",
+            sort_action="native",
+            sort_mode="multi",
+            row_selectable="multi",
+            row_deletable=False,
+            selected_rows=[],
+            page_action="native",
+            page_current= 0,
+            page_size= 6,
+            # page_action='none',
+            # style_cell={
+            # 'whiteSpace': 'normal'
+            # },
+            # fixed_rows={ 'headers': True, 'data': 0 },
+            # virtualization=False,
+            style_cell_conditional=[
+                {'if': {'column_id': 'countriesAndTerritories'},
+                 'width': '40%', 'textAlign': 'left'},
+                {'if': {'column_id': 'deaths'},
+                 'width': '30%', 'textAlign': 'left'},
+                {'if': {'column_id': 'cases'},
+                 'width': '30%', 'textAlign': 'left'},
+            ],
         ),
+    ],className='row'),
 
-        html.Hr(),  # horizontal line
+    html.Div([
+        html.Div([
+            dcc.Dropdown(id='linedropdown',
+                options=[
+                         {'label': 'Deaths', 'value': 'deaths'},
+                         {'label': 'Cases', 'value': 'cases'}
+                ],
+                value='deaths',
+                multi=False,
+                clearable=False
+            ),
+        ],className='six columns'),
 
-        # For debugging, display the raw contents provided by the web browser
-        html.Div('Raw Content'),
-        html.Pre(contents[0:200] + '...', style={
-            'whiteSpace': 'pre-wrap',
-            'wordBreak': 'break-all'
-        })
-    ])
+        html.Div([
+        dcc.Dropdown(id='piedropdown',
+            options=[
+                     {'label': 'Deaths', 'value': 'deaths'},
+                     {'label': 'Cases', 'value': 'cases'}
+            ],
+            value='cases',
+            multi=False,
+            clearable=False
+        ),
+        ],className='six columns'),
+
+    ],className='row'),
+
+    html.Div([
+        html.Div([
+            dcc.Graph(id='linechart'),
+        ],className='six columns'),
+
+        html.Div([
+            dcc.Graph(id='piechart'),
+        ],className='six columns'),
+
+    ],className='row'),
 
 
-@app.callback(Output('output-data-upload', 'children'),
-              [Input('upload-data', 'contents')],
-              [State('upload-data', 'filename'),
-               State('upload-data', 'last_modified')])
-               
-def update_output(list_of_contents, list_of_names, list_of_dates):
-    if list_of_contents is not None:
-        children = [
-            parse_contents(c, n, d) for c, n, d in
-            zip(list_of_contents, list_of_names, list_of_dates)]
-        return children
+])
+
+#------------------------------------------------------------------
+@app.callback(
+    [Output('piechart', 'figure'),
+     Output('linechart', 'figure')],
+    [Input('datatable_id', 'selected_rows'),
+     Input('piedropdown', 'value'),
+     Input('linedropdown', 'value')]
+)
+def update_data(chosen_rows,piedropval,linedropval):
+    if len(chosen_rows)==0:
+        df_filterd = dff[dff['countriesAndTerritories'].isin(['China','Iran','Spain','Italy'])]
+    else:
+        print(chosen_rows)
+        df_filterd = dff[dff.index.isin(chosen_rows)]
+
+    pie_chart=px.pie(
+            data_frame=df_filterd,
+            names='countriesAndTerritories',
+            values=piedropval,
+            hole=.3,
+            labels={'countriesAndTerritories':'Countries'}
+            )
+
+
+    #extract list of chosen countries
+    list_chosen_countries=df_filterd['countriesAndTerritories'].tolist()
+    #filter original df according to chosen countries
+    #because original df has all the complete dates
+    df_line = df[df['countriesAndTerritories'].isin(list_chosen_countries)]
+
+    line_chart = px.line(
+            data_frame=df_line,
+            x='dateRep',
+            y=linedropval,
+            color='countriesAndTerritories',
+            labels={'countriesAndTerritories':'Countries', 'dateRep':'date'},
+            )
+    line_chart.update_layout(uirevision='foo')
+
+    return (pie_chart,line_chart)
     
 if __name__ == '__main__':
     app.run_server(debug=True, port = 8050, host='0.0.0.0')
