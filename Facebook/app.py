@@ -100,9 +100,9 @@ def update_graph(selected_dropdown):
     trace2 = []
     for stock in selected_dropdown:
         trace1.append(go.Scatter(x=df[df["Stock"] == stock]["Date"],y=df[df["Stock"] == stock]["High"],mode='lines',
-            opacity=0.7,name=f'High {dropdown[stock]}',textposition='bottom center'))
+            opacity=0.7,name='High {dropdown[stock]}',textposition='bottom center'))
         trace2.append(go.Scatter(x=df[df["Stock"] == stock]["Date"],y=df[df["Stock"] == stock]["Low"],mode='lines',
-            opacity=0.6,name=f'Low {dropdown[stock]}',textposition='bottom center'))
+            opacity=0.6,name='Low {dropdown[stock]}',textposition='bottom center'))
     traces = [trace1, trace2]
     data = [val for sublist in traces for val in sublist]
     figure = {'data': data,
@@ -124,7 +124,7 @@ def update_graph(selected_dropdown_value):
     trace1 = []
     for stock in selected_dropdown_value:
         trace1.append(go.Scatter(x=df[df["Stock"] == stock]["Date"],y=df[df["Stock"] == stock]["Volume"],mode='lines',
-            opacity=0.7,name=f'Volume {dropdown[stock]}',textposition='bottom center'))
+            opacity=0.7,name='Volume {dropdown[stock]}',textposition='bottom center'))
     traces = [trace1]
     data = [val for sublist in traces for val in sublist]
     figure = {'data': data,
@@ -183,7 +183,7 @@ def update_graph(selected_feature1):
 
     return {
         'data': [trace],
-        'layout': go.Layout(title=f'Metric: {selected_feature1.title()}',
+        'layout': go.Layout(title='Metric: {selected_feature1.title()}',
                             colorway=["#EF963B", "#EF533B"], hovermode="closest",
                             xaxis={'title': "Distribution", 'titlefont': {'color': 'black', 'size': 14},
                                    'tickfont': {'size': 14, 'color': 'black'}},
@@ -226,9 +226,9 @@ def update_graph(stock , radioval):
                                       plot_bgcolor='rgba(0,0,0,0)')}
     else:
         trace1.append(go.Scatter(x=train_data['Date'],y=train_data[radioval], mode='lines',
-            opacity=0.7,name=f'Training Set',textposition='bottom center'))
+            opacity=0.7,name='Training Set',textposition='bottom center'))
         trace2.append(go.Scatter(x=test_data['Date'],y=test_data[radioval],mode='lines',
-            opacity=0.6,name=f'Test Set',textposition='bottom center'))
+            opacity=0.6,name='Test Set',textposition='bottom center'))
         traces = [trace1, trace2]
         data = [val for sublist in traces for val in sublist]
         figure = {'data': data,
@@ -277,9 +277,9 @@ def update_graph(stock, radioval):
             history.append(obs)
         error = mean_squared_error(test_ar, predictions)
         trace1.append(go.Scatter(x=test_data['Date'],y=test_data['High'],mode='lines',
-            opacity=0.6,name=f'Actual Series',textposition='bottom center'))
+            opacity=0.6,name='Actual Series',textposition='bottom center'))
         trace2.append(go.Scatter(x=test_data['Date'],y= np.concatenate(predictions).ravel(), mode='lines',
-            opacity=0.7,name=f'Predicted Series (MSE: {error})',textposition='bottom center'))
+            opacity=0.7,name='Predicted Series (MSE: {error})',textposition='bottom center'))
         traces = [trace1, trace2]
         data = [val for sublist in traces for val in sublist]
         figure = {'data': data,
