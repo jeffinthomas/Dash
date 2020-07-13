@@ -14,11 +14,22 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 from statsmodels.tsa.arima_model import ARIMA
 from sklearn.metrics import mean_squared_error
+import MySQLdb
 
 external_scripts = ['/assets/style.css']
 app = dash.Dash(__name__,external_scripts=external_scripts)
 server = app.server
 
+conn = MySQLdb.connect(host="database-12.c3akcdosls7f.ap-southeast-1.rds.amazonaws.com", user="admin", passwd="Mathi#123", db="company")
+cursor = conn.cursor()
+cursor.execute('select Region, Country, Item_Type, Sales_Channel, Order_Date from sales_full_jeffin');
+
+rows = cursor.fetchall()
+str(rows)[0:300]
+
+df1 = pd.DataFrame( [[ij for ij in i] for i in rows] )
+df1.rename(columns={0: 'Region', 1: 'Country', 2: 'Type', 3: 'Sales Channel', 4:'Order Date'}, inplace=True);
+print(df1)
 df = pd.read_csv("stock_data.csv")
 
 app.layout = html.Div([html.H1("Facebook Data Analysis", style={"textAlign": "center"}),
