@@ -14,7 +14,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 from statsmodels.tsa.arima_model import ARIMA
 from sklearn.metrics import mean_squared_error
-import MySQLdb
+import mysql.connector as MySQLdb
 
 external_scripts = ['/assets/style.css']
 app = dash.Dash(__name__,external_scripts=external_scripts)
@@ -39,6 +39,13 @@ app.layout = html.Div([html.H1("Facebook Data Analysis", style={"textAlign": "ce
 			id='table',
 			columns=[{"name": i, "id": i} for i in df.columns],
 			data=df.iloc[0:5,:].to_dict("rows"),
+		),
+		dcc.Markdown('''Jeffin'''),
+		dash_table.DataTable(
+			id='tabledf1',
+			columns=[{"name": i, "id": i} for i in df1.columns],
+			data=df1.iloc[0:5,:].to_dict("rows"),
+
 		),
 		html.H1("Facebook Stocks High vs Lows", style={'textAlign': 'center', 'padding-top': 5}),
 		dcc.Dropdown(id='my-dropdown',options=[{'label': 'Tesla', 'value': 'TSLA'},{'label': 'Apple', 'value': 'AAPL'},{'label': 'Facebook', 'value': 'FB'},{'label': 'Microsoft', 'value': 'MSFT'}],
