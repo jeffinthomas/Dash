@@ -47,14 +47,14 @@ def update_graph(selected_dropdown):
     trace2 = []
     for stock in selected_dropdown:
         trace1.append(go.Scatter(x=df[df["Stock"] == stock]["Date"],y=df[df["Stock"] == stock]["High"],mode='lines',
-            opacity=0.7,name=f'High {dropdown[stock]}',textposition='bottom center'))
+            opacity=0.7,name='High {dropdown[stock]}',textposition='bottom center'))
         trace2.append(go.Scatter(x=df[df["Stock"] == stock]["Date"],y=df[df["Stock"] == stock]["Low"],mode='lines',
-            opacity=0.6,name=f'Low {dropdown[stock]}',textposition='bottom center'))
+            opacity=0.6,name='Low {dropdown[stock]}',textposition='bottom center'))
     traces = [trace1, trace2]
     data = [val for sublist in traces for val in sublist]
     figure = {'data': data,
         'layout': go.Layout(colorway=["#5E0DAC", '#FF4F00', '#375CB1', '#FF7400', '#FFF400', '#FF0056'],
-            height=600,title=f"High and Low Prices for {', '.join(str(dropdown[i]) for i in selected_dropdown)} Over Time",
+            height=600,title="High and Low Prices for {', '.join(str(dropdown[i]) for i in selected_dropdown)} Over Time",
             xaxis={"title":"Date",
                    'rangeselector': {'buttons': list([{'count': 1, 'label': '1M', 'step': 'month', 'stepmode': 'backward'},
                                                       {'count': 6, 'label': '6M', 'step': 'month', 'stepmode': 'backward'},
