@@ -72,7 +72,7 @@ dash_table.DataTable(
   dcc.RadioItems(id="radiob", value= "High", labelStyle={'display': 'inline-block', 'padding': 10},
                  options=[{'label': "High", 'value': "High"}, {'label': "Low", 'value': "Low"} , {'label': "Volume", 'value': "Volume"}],
  style={'textAlign': "center", }),
-    dcc.Graph(id='scatter')
+    dcc.Graph(id='scat')
 ], className="container"),
 ]),
 
